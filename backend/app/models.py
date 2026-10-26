@@ -2,7 +2,8 @@ import uuid
 from datetime import UTC, datetime
 
 from pydantic import EmailStr
-from sqlmodel import Field, Relationship, SQLModel
+from sqlmodel import Field, Relationship, SQLModel, Index
+import sqlalchemy as sa
 
 
 def get_datetime_utc() -> datetime:
@@ -91,6 +92,10 @@ class Item(ItemBase, table=True):
         foreign_key="user.id", nullable=False, ondelete="CASCADE"
     )
     owner: User | None = Relationship(back_populates="items")
+
+    __table_args__ = (
+        Index('ix_item_owner_created', 'owner_id', 'created_at'),
+    )
 
 
 # Properties to return via API, id is always required
