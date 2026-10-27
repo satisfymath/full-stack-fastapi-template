@@ -2,8 +2,7 @@ import uuid
 from datetime import UTC, datetime
 
 from pydantic import EmailStr
-from sqlmodel import Field, Relationship, SQLModel, Index
-import sqlalchemy as sa
+from sqlmodel import Field, Index, Relationship, SQLModel
 
 
 def get_datetime_utc() -> datetime:
